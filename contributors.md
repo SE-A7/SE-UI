@@ -1,4 +1,4 @@
-__Contributors List (A7)__
+__Contributors List User Interface (A7)__
 
 * [Dănilă G. Marius-Cristian](https://github.com/cristid9)
 * [Olaru M. Marius-George](https://github.com/mariusolaru)
