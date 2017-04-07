@@ -1,9 +1,10 @@
-__Contributors__
+__Contributors List (A7)__
 
-* [Cristi Danila](https://github.com/cristid9)
-* [Marius Olaru](https://github.com/mariusolaru)
-* [Ciornei Andrei](https://github.com/GianiAndreiCiornei)
-* [Costan Catalin](https://github.com/costancatalin)
-* [Bogdan Boca](https://github.com/BogdanB01)
-* [Cosmin Dochitei](https://github.com/dcosmin06)
-* [Motrescu Tudor](https://github.com/samurake)
+* [Dănilă G. Marius-Cristian](https://github.com/cristid9)
+* [Olaru M. Marius-George](https://github.com/mariusolaru)
+* [Ciornei E. Giani-Andrei](https://github.com/GianiAndreiCiornei)
+* [Costan V. Vasilică-Cătălin](https://github.com/costancatalin)
+* [Boca V. Ioan-Bogdan](https://github.com/BogdanB01)
+* [Dochiței R. Cosmin-Alexandru](https://github.com/dcosmin06)
+* [Motrescu V.G. Tudor-George](https://github.com/samurake)
+* [Patraș V. Silviu](https://github.com/wisesoul)
