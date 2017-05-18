@@ -12,13 +12,16 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class Main extends Application {
 
     private static Scene mainApplicationPage;
-    private static final String TEXT_FIELD_CLASS = "text-field";
-    private static final String BUTTON_CLASS = "button";
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -62,6 +65,22 @@ public class Main extends Application {
         Menu menuSaveAs = new Menu("Save as");
         Menu menuExport = new Menu("Export");
         Menu menuOptions = new Menu("Options");
+
+        onAction(menuSaveAs);
+        menuSaveAs.setOnAction(e->{
+            FileChooser fileChooser = new FileChooser();
+
+            FileChooser.ExtensionFilter extFilterTxt  = new FileChooser.ExtensionFilter("TXT files (*.txt)", "*.txt");
+            FileChooser.ExtensionFilter extFilterHtml = new FileChooser.ExtensionFilter("HTML files (*.html)", "*.html");
+            FileChooser.ExtensionFilter extFilterPdf  = new FileChooser.ExtensionFilter("PDF files (*.pdf)" , "*.pdf");
+            fileChooser.getExtensionFilters().addAll(extFilterTxt, extFilterHtml, extFilterPdf);
+
+            File file = fileChooser.showSaveDialog(primaryStage);
+            if(file != null){
+                SaveFile("heicf", file);
+            }
+        });
+
 
         MenuItem syntaxVersionOptions = new MenuItem("Syntax Version Options");
         MenuItem customRulesCreator = new MenuItem("Custom Rules Creator");
@@ -109,6 +128,27 @@ public class Main extends Application {
 
     }
 
+    public static void onAction(Menu menu)
+    {
+        final MenuItem menuItem = new MenuItem();
+
+        menu.getItems().add(menuItem);
+        menu.addEventHandler(Menu.ON_SHOWN, event -> menu.hide());
+        menu.addEventHandler(Menu.ON_SHOWING, event -> menu.fire());
+    }
+
+    private void SaveFile(String content, File file){
+        try {
+            FileWriter fileWriter = null;
+
+            fileWriter = new FileWriter(file);
+            fileWriter.write(content);
+            fileWriter.close();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+
+    }
 
     public static void main(String[] args) {
         launch(args);
