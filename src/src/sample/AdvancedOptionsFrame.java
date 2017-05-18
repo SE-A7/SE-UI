@@ -1,4 +1,4 @@
-package com.segui;
+package sample;
 
 public class AdvancedOptionsFrame {
 }

@@ -32,6 +32,14 @@
      -fx-effect: dropshadow(three-pass-box, black, 30, 0.5, 0, 0);
 }
 
+#main-page{
+     -fx-background-image: url("backgroundMainPage.jpg");
+     -fx-background-repeat: stretch;
+     -fx-background-size: 850 650;
+     -fx-background-position: center center;
+     -fx-effect: dropshadow(three-pass-box, black, 30, 0.5, 0, 0);
+}
+
 
 .menu-item .label {
     -fx-text-fill: white;
@@ -41,9 +49,6 @@
      -fx-background-color: darkgray;
 }
 
-.menu-item:focused .label {
-    -fx-text-fill: blue;
-}
 
 .context-menu {
     -fx-skin: "com.sun.javafx.scene.control.skin.ContextMenuSkin";
@@ -53,3 +58,17 @@
 /*    -fx-padding: 0.666667em 0.083333em 0.666667em 0.083333em;  8 1 8 1 */
     -fx-padding: 0.333333em 0.083333em 0.666667em 0.083333em; /* 4 1 8 1 */
 }
+
+.button {
+     -fx-text-fill: white;
+     -fx-font-family: "Arial Narrow";
+     -fx-font-weight: bold;
+     -fx-background-color: linear-gradient(#61a2b1, #2A5058);
+     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
+     -fx-pref-height: 28px;
+     -fx-pref-width: 100px;
+ }
+ .button:hover {
+     -fx-background-color: linear-gradient(#2A5058, #61a2b1);
+ }
+
