@@ -1,0 +1,55 @@
+#welcome {
+    -fx-font: 50px Tahoma;
+    -fx-fill:          linear-gradient(from 0% 0% to 15% 50%, rgba(255,255,255,0.9), rgba(255,255,255,0));
+    -fx-fill:          linear-gradient(#ffe657 0%, #f8c202 50%, #eea10b 100%);
+    -fx-fill: linear-gradient(#ffd65b, #e68400);
+    -fx-fill:          linear-gradient(#ffef84, #f2ba44);
+    -fx-fill:         linear-gradient(#ffea6a, #efaa22);
+
+    -fx-padding: 100px;
+}
+
+#ok {
+  -fx-background-color:
+         linear-gradient(#ffd65b, #e68400),
+         linear-gradient(#ffef84, #f2ba44),
+         linear-gradient(#ffea6a, #efaa22),
+         linear-gradient(#ffe657 0%, #f8c202 50%, #eea10b 100%),
+         linear-gradient(from 0% 0% to 15% 50%, rgba(255,255,255,0.9), rgba(255,255,255,0));
+     -fx-background-radius: 30;
+     -fx-background-insets: 0,1,2,3,0;
+     -fx-text-fill: #654b00;
+     -fx-font-weight: bold;
+     -fx-font-size: 14px;
+     -fx-padding: 10 20 10 20;
+}
+
+#root{
+     -fx-background-image: url("background.png");
+     -fx-background-repeat: stretch;
+     -fx-background-size: 850 650;
+     -fx-background-position: center center;
+     -fx-effect: dropshadow(three-pass-box, black, 30, 0.5, 0, 0);
+}
+
+
+.menu-item .label {
+    -fx-text-fill: white;
+}
+
+.menu-item:focused {
+     -fx-background-color: darkgray;
+}
+
+.menu-item:focused .label {
+    -fx-text-fill: blue;
+}
+
+.context-menu {
+    -fx-skin: "com.sun.javafx.scene.control.skin.ContextMenuSkin";
+    -fx-background-color: black;
+    -fx-background-insets: 0, 1, 2;
+    -fx-background-radius: 0 6 6 6, 0 5 5 5, 0 4 4 4;
+/*    -fx-padding: 0.666667em 0.083333em 0.666667em 0.083333em;  8 1 8 1 */
+    -fx-padding: 0.333333em 0.083333em 0.666667em 0.083333em; /* 4 1 8 1 */
+}
