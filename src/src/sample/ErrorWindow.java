@@ -12,7 +12,7 @@ public class ErrorWindow {
         Label errorLabel = new Label(errorMessage);
         VBox layout = new VBox();
         layout.getChildren().add(errorLabel);
-        Scene scene = new Scene(layout,200, 200);
+        Scene scene = new Scene(layout,300, 300);
         window.setScene(scene);
         window.showAndWait();
     }
