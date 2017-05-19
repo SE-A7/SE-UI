@@ -51,7 +51,6 @@ public class Main extends Application {
         primaryStage.show();
         primaryStage.setResizable(false);
 
-
         // main page
         BorderPane mainPage = new BorderPane();
         mainPage.setId("main-page");
@@ -108,6 +107,14 @@ public class Main extends Application {
 
         Button convertButton = new Button("Convert");
         Button previewButton = new Button("Preview");
+        previewButton.setOnAction(event -> {
+            if (xwikiCode.getText().length() == 0) {
+                // show an error dialog
+                System.out.println("The input is empty");
+            } else {
+                PreviewWindow.displayPreview(XWikiToHtmlRenderer.convert(xwikiCode.getText()));
+            }
+        });
 
         HBox hboxButtons = new HBox();
         hboxButtons.setAlignment(Pos.CENTER);
