@@ -23,6 +23,8 @@ public class Main extends Application {
 
     private static Scene mainApplicationPage;
 
+    private static final String emptyInputString = "Cannot render preview, you haven't something.";
+
     @Override
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
@@ -109,8 +111,7 @@ public class Main extends Application {
         Button previewButton = new Button("Preview");
         previewButton.setOnAction(event -> {
             if (xwikiCode.getText().length() == 0) {
-                // show an error dialog
-                System.out.println("The input is empty");
+                ErrorWindow.displayError(emptyInputString);
             } else {
                 PreviewWindow.displayPreview(XWikiToHtmlRenderer.convert(xwikiCode.getText()));
             }
