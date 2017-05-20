@@ -42,6 +42,7 @@ public class MiscelaneousOptionsPanel {
         Button saveButton = new Button("Save");
 
         VBox layout = new VBox();
+        layout.setId("main-page");
 
         HBox layoutSwitchSyntaxH = new HBox();
         layoutSwitchSyntaxH.getChildren().add(syntaxOnOfLabel);
