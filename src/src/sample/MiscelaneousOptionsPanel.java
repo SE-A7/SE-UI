@@ -84,6 +84,7 @@ public class MiscelaneousOptionsPanel {
         window.setResizable(false);
         window.setWidth(500);
         window.setHeight(300);
+        window.setTitle("Miscelaneous Options");
         scene.getStylesheets().add(css);
         window.setScene(scene);
         window.show();
