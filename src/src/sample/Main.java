@@ -89,6 +89,7 @@ public class Main extends Application {
         menuOptions.getItems().addAll(syntaxVersionOptions, customRulesCreator, miscellaneousOptions);
 
         syntaxVersionOptions.setOnAction(event -> SyntaxVersionOptionsPanel.display());
+        miscellaneousOptions.setOnAction(event -> MiscelaneousOptionsPanel.display());
 
         menuBar.getMenus().addAll(menuFile, menuSave, menuSaveAs, menuExport, menuOptions);
 
