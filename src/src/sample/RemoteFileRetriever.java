@@ -16,20 +16,12 @@ public class RemoteFileRetriever {
      * @param url The place on the web where the file is located.
      * @return A string with the contents of the file.
      */
-    public static String getFile(String url) {
+    public static String getFile(String url) throws IOException {
         URL xwikiDoc = null;
-        try {
-            xwikiDoc = new URL(url);
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
+        xwikiDoc = new URL(url);
 
         StringWriter writer = new StringWriter();
-        try {
-            IOUtils.copy(xwikiDoc.openStream(), writer, ENCODING);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        IOUtils.copy(xwikiDoc.openStream(), writer, ENCODING);
         String urlContents = writer.toString();
 
         return urlContents;
