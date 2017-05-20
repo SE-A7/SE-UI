@@ -1,39 +1,31 @@
 package sample;
 
-import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ColorPicker;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
-import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 
-public class SyntaxVersionOptionsPanel extends Application {
+public class SyntaxVersionOptionsPanel  {
 
-    Button button;
+    public static void display() {
+        Stage stage = new Stage();
+        Button button;
 
-    @Override
-    public void start(Stage stage) {
+        Text text = new Text();
+        Text text2 = new Text();
 
-         Text text = new Text();
-         Text text2 = new Text();
-
-         VBox root = new VBox();
-         root.setId("main-page");
+        VBox root = new VBox();
+        root.setId("main-page");
 
         text.setText("    \n     Choose the current xWiki version");
         text2.setText("    \n     Choose the preffered xWiki version");
@@ -91,11 +83,8 @@ public class SyntaxVersionOptionsPanel extends Application {
 
         root.getChildren().addAll(text , hbox , text2 , hbox1 , hbox2);
 
-
-
         Scene scene = new Scene(root, 300, 210);
-        String css = this.getClass().getResource("../resources/style.css").toExternalForm();
-
+        String css = SyntaxVersionOptionsPanel.class.getResource("../resources/style.css").toExternalForm();
 
         stage.setTitle("Syntax options");
 
@@ -103,11 +92,5 @@ public class SyntaxVersionOptionsPanel extends Application {
         stage.setResizable(false);
         scene.getStylesheets().add(css);
         stage.show();
-
     }
-
-    public static void main(String[] args) {
-        launch(args);
-    }
-
 }

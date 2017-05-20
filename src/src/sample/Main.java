@@ -88,6 +88,8 @@ public class Main extends Application {
         MenuItem miscellaneousOptions = new MenuItem("Miscellaneous Options");
         menuOptions.getItems().addAll(syntaxVersionOptions, customRulesCreator, miscellaneousOptions);
 
+        syntaxVersionOptions.setOnAction(event -> SyntaxVersionOptionsPanel.display());
+
         menuBar.getMenus().addAll(menuFile, menuSave, menuSaveAs, menuExport, menuOptions);
 
         TextField url = new TextField();
@@ -136,8 +138,7 @@ public class Main extends Application {
 
     }
 
-    public static void onAction(Menu menu)
-    {
+    public static void onAction(Menu menu) {
         final MenuItem menuItem = new MenuItem();
 
         menu.getItems().add(menuItem);
