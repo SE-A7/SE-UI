@@ -67,21 +67,21 @@ public class SyntaxVersionOptionsPanel  {
         hbox.getChildren().addAll(xWiki1 , xWiki2);
 
         hbox.setSpacing(50);
-        hbox.setMargin(xWiki1 , new Insets(10 , 0 , 10 , 35));
-        hbox.setMargin(xWiki2 , new Insets(10 , 0 , 10 , 35));
+        hbox.setMargin(xWiki1, new Insets(10, 0, 10, 35));
+        hbox.setMargin(xWiki2, new Insets(10, 0, 10, 35));
         hbox1.setSpacing(50);
-        hbox1.setMargin(xWiki3 , new Insets(10 , 0 , 10 , 35));
-        hbox1.setMargin(xWiki4 , new Insets(10 , 0 , 10 , 35));
+        hbox1.setMargin(xWiki3, new Insets(10, 0, 10, 35));
+        hbox1.setMargin(xWiki4, new Insets(10, 0, 10, 35));
 
         hbox1.getChildren().addAll(xWiki3 , xWiki4);
 
         hbox2.getChildren().addAll(cancelbtn , savebtn);
 
         hbox2.setAlignment(Pos.CENTER);
-        hbox2.setMargin(savebtn , new Insets(20 , 0 , 0 ,70));
-        hbox2.setMargin(cancelbtn , new Insets(20 , 0 , 0 , 0));
+        hbox2.setMargin(savebtn , new Insets(20, 0, 0,70));
+        hbox2.setMargin(cancelbtn , new Insets(20, 0, 0, 0));
 
-        root.getChildren().addAll(text , hbox , text2 , hbox1 , hbox2);
+        root.getChildren().addAll(text, hbox, text2, hbox1, hbox2);
 
         Scene scene = new Scene(root, 300, 210);
         String css = SyntaxVersionOptionsPanel.class.getResource("../resources/style.css").toExternalForm();
