@@ -38,6 +38,7 @@ public class MiscelaneousOptionsPanel {
         ComboBox exportFormats = new ComboBox();
         Button defaultSavePathPicker = new Button("Choose");
         Button cancelButton = new Button("cancel");
+        cancelButton.setOnAction(event -> window.close());
         Button saveButton = new Button("Save");
 
         VBox layout = new VBox();
