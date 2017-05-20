@@ -15,15 +15,19 @@ import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import javax.print.DocFlavor;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.net.MalformedURLException;
 
 public class Main extends Application {
 
     private static Scene mainApplicationPage;
 
     private static final String emptyInputString = "Cannot render preview, you haven't something.";
+    private static final String EMPTY_URL_ERROT = "No url inserted";
+    private static final String INVALID_URL_ERROR = "The url you've entered is not valid";
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -98,7 +102,6 @@ public class Main extends Application {
         url.setPrefWidth(300);
         Button getUrlButton = new Button("Get from URL");
 
-
         HBox hbox = new HBox();
         hbox.setSpacing(100);
         hbox.setId("url-and-button");
@@ -117,6 +120,18 @@ public class Main extends Application {
                 ErrorWindow.displayError(emptyInputString);
             } else {
                 PreviewWindow.displayPreview(XWikiToHtmlRenderer.convert(xwikiCode.getText()));
+            }
+        });
+
+        getUrlButton.setOnAction(event -> {
+            if (url.getText().length() == 0) {
+                ErrorWindow.displayError(EMPTY_URL_ERROT);
+            } else {
+                try {
+                    xwikiCode.setText(RemoteFileRetriever.getFile(url.getText()));
+                } catch (IOException e) {
+                    ErrorWindow.displayError(INVALID_URL_ERROR);
+                }
             }
         });
 
