@@ -43,6 +43,7 @@ public class SyntaxVersionOptionsPanel  {
         savebtn.setText("Save");
 
         Button cancelbtn = new Button();
+        cancelbtn.setOnAction(event -> stage.close());
         cancelbtn.setText("Cancel");
 
         ToggleGroup tg = new ToggleGroup();
