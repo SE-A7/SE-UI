@@ -27,8 +27,8 @@ public class XWikiToHtmlRenderer {
         WikiPrinter printer = new DefaultWikiPrinter();
         try {
             converter.convert(new StringReader(xWikiString), Syntax.XWIKI_2_1, Syntax.XHTML_1_0, printer);
-        } catch (ConversionException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            return null;
         }
 
         return printer.toString();
