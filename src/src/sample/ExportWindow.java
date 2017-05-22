@@ -27,21 +27,19 @@ public class ExportWindow {
         button.setOnAction(e -> {
             FileChooser fileChooser = new FileChooser();
 
-            FileChooser.ExtensionFilter extFilter;
-            if(comboBox.getValue() == "PDF"){
+            FileChooser.ExtensionFilter extFilter = null;
+            if(comboBox.getValue().equals("PDF")) {
                 extFilter = new FileChooser.ExtensionFilter("PDF (*.pdf");
             }
-            if(comboBox.getValue() == "ODT"){
+            if(comboBox.getValue().equals("ODT")) {
                 extFilter = new FileChooser.ExtensionFilter("OpenDocument Text (.odt)");
             }
-            if(comboBox.getValue() == "HTML"){
+            if(comboBox.getValue().equals("HTML")) {
                 extFilter = new FileChooser.ExtensionFilter("Web Page (*.html)");
             }
 
             fileChooser.getExtensionFilters().add(extFilter);
             File file = fileChooser.showSaveDialog(window);
-
-
         });
 
         VBox layout = new VBox();
@@ -50,9 +48,5 @@ public class ExportWindow {
         Scene scene = new Scene(layout, 400, 400);
         window.setScene(scene);
         window.showAndWait();
-
-
-
-
     }
 }
