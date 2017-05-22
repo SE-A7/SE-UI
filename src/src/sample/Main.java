@@ -71,22 +71,6 @@ public class Main extends Application {
         Menu menuExport = new Menu("Export");
         Menu menuOptions = new Menu("Options");
 
-        onAction(menuSaveAs);
-        menuSaveAs.setOnAction(e->{
-            FileChooser fileChooser = new FileChooser();
-
-            FileChooser.ExtensionFilter extFilterTxt  = new FileChooser.ExtensionFilter("TXT files (*.txt)", "*.txt");
-            FileChooser.ExtensionFilter extFilterHtml = new FileChooser.ExtensionFilter("HTML files (*.html)", "*.html");
-            FileChooser.ExtensionFilter extFilterPdf  = new FileChooser.ExtensionFilter("PDF files (*.pdf)" , "*.pdf");
-            fileChooser.getExtensionFilters().addAll(extFilterTxt, extFilterHtml, extFilterPdf);
-
-            File file = fileChooser.showSaveDialog(primaryStage);
-            if(file != null){
-                SaveFile("heicf", file);
-            }
-        });
-
-
         MenuItem syntaxVersionOptions = new MenuItem("Syntax Version Options");
         MenuItem customRulesCreator = new MenuItem("Custom Rules Creator");
         MenuItem miscellaneousOptions = new MenuItem("Miscellaneous Options");
@@ -119,6 +103,7 @@ public class Main extends Application {
         previewButton.setOnAction(event -> {
             if (xwikiCode.getText().length() == 0) {
                 ErrorWindow.displayError(emptyInputString);
+                new AppConfig().saveConfig();
             } else {
                 PreviewWindow.displayPreview(XWikiToHtmlRenderer.convert(xwikiCode.getText()));
             }
@@ -153,14 +138,29 @@ public class Main extends Application {
         mainPage.setBottom(hboxButtons);
         mainPage.setCenter(urlAndCode);
 
+
+        menuSaveAs.setOnAction(e -> {
+            FileChooser fileChooser = new FileChooser();
+
+            FileChooser.ExtensionFilter extFilterTxt  = new FileChooser.ExtensionFilter("TXT files (*.txt)", "*.txt");
+            FileChooser.ExtensionFilter extFilterHtml = new FileChooser.ExtensionFilter("HTML files (*.html)", "*.html");
+            FileChooser.ExtensionFilter extFilterPdf  = new FileChooser.ExtensionFilter("PDF files (*.pdf)" , "*.pdf");
+            fileChooser.getExtensionFilters().addAll(extFilterTxt, extFilterHtml, extFilterPdf);
+
+            File file = fileChooser.showSaveDialog(primaryStage);
+            if (file != null){
+                SaveFile(xwikiCode.getText(), file);
+            }
+        });
+        onAction(menuSaveAs);
     }
 
     public static void onAction(Menu menu) {
         final MenuItem menuItem = new MenuItem();
 
-        menu.getItems().add(menuItem);
         menu.addEventHandler(Menu.ON_SHOWN, event -> menu.hide());
         menu.addEventHandler(Menu.ON_SHOWING, event -> menu.fire());
+        menu.getItems().add(menuItem);
     }
 
     private void SaveFile(String content, File file){
