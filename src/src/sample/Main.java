@@ -153,6 +153,11 @@ public class Main extends Application {
             }
         });
         onAction(menuSaveAs);
+
+        menuExport.setOnAction(event -> {
+            ExportWindow.displayExport();
+        });
+        onAction(menuExport);
     }
 
     public static void onAction(Menu menu) {
