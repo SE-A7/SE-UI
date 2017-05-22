@@ -36,6 +36,10 @@ public class MiscelaneousOptionsPanel {
         syntaxHOn.setToggleGroup(toggleGroup);
 
         ComboBox exportFormats = new ComboBox();
+        exportFormats.getItems().addAll("PDF", "ODT", "HTML");
+        exportFormats.setPromptText("Choose a format..");
+
+
         Button defaultSavePathPicker = new Button("Choose");
         Button cancelButton = new Button("cancel");
         cancelButton.setOnAction(event -> window.close());
