@@ -1,5 +1,6 @@
 package sample;
 
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -26,13 +27,13 @@ public class CustomRulesCreatorPanel {
         Scene scene;
 
         Text text = new Text();
-        text.setText("\nInsert your new xWiki rule:");
+        text.setText("Insert your new xWiki rule:");
         text.setFont(Font.font("verdana", FontPosture.REGULAR, 15));
         text.setFill(Color.BLACK);
         text.setStrokeWidth(2);
 
         Text text2 = new Text();
-        text2.setText("\nInsert rule's purpose:");
+        text2.setText("Insert rule's purpose:");
         text2.setFont(Font.font("verdana", FontPosture.REGULAR, 15));
         text2.setFill(Color.BLACK);
         text2.setStrokeWidth(2);
@@ -63,26 +64,32 @@ public class CustomRulesCreatorPanel {
         txthb.setSpacing(25);
         txthb.getChildren().add(text);
         txthb.setAlignment(Pos.CENTER);
+        txthb.setMargin(text, new Insets(20, 0, 0, 0));
 
         HBox txthb2 = new HBox();
         txthb2.setSpacing(25);
         txthb2.getChildren().add(text2);
         txthb2.setAlignment(Pos.CENTER);
+        txthb2.setMargin(text2, new Insets(20, 0, 0, 0));
 
         HBox hb = new HBox();
         hb.setSpacing(50);
         hb.getChildren().add(ruleInput);
         hb.setAlignment(Pos.CENTER);
+        hb.setMargin(ruleInput, new Insets(0, 0, 0, 10));
 
         HBox hb2 = new HBox();
         hb2.setSpacing(50);
         hb2.getChildren().add(roleInput);
         hb2.setAlignment(Pos.CENTER);
+        hb2.setMargin(roleInput, new Insets(0, 10, 0, 0));
 
         HBox hb3 = new HBox();
         hb3.setSpacing(50);
         hb3.getChildren().addAll(addbtn,cancelbtn);
         hb3.setAlignment(Pos.CENTER);
+        hb3.setMargin(addbtn, new Insets(0, 0, 20, 0));
+        hb3.setMargin(cancelbtn, new Insets(0, 0, 20, 0));
 
         VBox row_1 = new VBox();
         row_1.setSpacing(25);
@@ -122,11 +129,13 @@ public class CustomRulesCreatorPanel {
                 box1.setSpacing(50);
                 box1.getChildren().add(rule);
                 box1.setAlignment(Pos.CENTER);
+                box1.setMargin(rule, new Insets(0, 0, 0, 10));
 
                 HBox box2 = new HBox();
                 box2.setSpacing(50);
                 box2.getChildren().add(role);
                 box2.setAlignment(Pos.CENTER);
+                box2.setMargin(role, new Insets(0, 10, 0, 0));
 
                 HBox content2 = new HBox();
                 content2.setSpacing(30);
