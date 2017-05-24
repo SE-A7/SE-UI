@@ -12,6 +12,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
 
@@ -27,9 +28,9 @@ public class SyntaxVersionOptionsPanel  {
         VBox root = new VBox();
         root.setId("main-page");
 
-        text.setText("    \n     Choose the current xWiki version");
-        text2.setText("    \n     Choose the preffered xWiki version");
+        text.setText("Choose the current xWiki version");
 
+        text2.setText("Choose the preffered xWiki version");
 
         text.setFont(Font.font("verdana", FontPosture.REGULAR, 15));
         text.setFill(Color.BLACK);
@@ -64,13 +65,18 @@ public class SyntaxVersionOptionsPanel  {
         HBox hbox = new HBox();
         HBox hbox1 = new HBox();
         HBox hbox2 = new HBox();
+        HBox hboxText1 = new HBox();
+        HBox hboxText2 = new HBox();
 
         hbox.getChildren().addAll(xWiki1 , xWiki2);
 
         hbox.setSpacing(50);
+        hbox.setAlignment(Pos.CENTER);
         hbox.setMargin(xWiki1, new Insets(10, 0, 10, 35));
         hbox.setMargin(xWiki2, new Insets(10, 0, 10, 35));
+
         hbox1.setSpacing(50);
+        hbox1.setAlignment(Pos.CENTER);
         hbox1.setMargin(xWiki3, new Insets(10, 0, 10, 35));
         hbox1.setMargin(xWiki4, new Insets(10, 0, 10, 35));
 
@@ -79,12 +85,20 @@ public class SyntaxVersionOptionsPanel  {
         hbox2.getChildren().addAll(cancelbtn , savebtn);
 
         hbox2.setAlignment(Pos.CENTER);
-        hbox2.setMargin(savebtn , new Insets(20, 0, 0,70));
+        hbox2.setMargin(savebtn , new Insets(20, 0, 0, 30));
         hbox2.setMargin(cancelbtn , new Insets(20, 0, 0, 0));
 
-        root.getChildren().addAll(text, hbox, text2, hbox1, hbox2);
+        hboxText1.setAlignment(Pos.CENTER);
+        hboxText1.getChildren().add(text);
+        hboxText1.setMargin(text, new Insets(20, 0, 0, 0));
 
-        Scene scene = new Scene(root, 300, 210);
+        hboxText2.setAlignment(Pos.CENTER);
+        hboxText2.getChildren().add(text2);
+        hboxText2.setMargin(text2, new Insets(20, 0, 0, 0));
+
+        root.getChildren().addAll(hboxText1, hbox, hboxText2, hbox1, hbox2);
+
+        Scene scene = new Scene(root, 350, 220);
         String css = SyntaxVersionOptionsPanel.class.getResource("../resources/style.css").toExternalForm();
 
         stage.setTitle("Syntax options");

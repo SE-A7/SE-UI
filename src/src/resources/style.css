@@ -80,8 +80,8 @@
 }
 
 .radio-button .dot {
-    -fx-mark-highlight-color: #67b252;
-    -fx-mark-color:  #67b252;
+    -fx-mark-highlight-color: #e96725;
+    -fx-mark-color:  #e96725;
 }
 
 #label-code {
