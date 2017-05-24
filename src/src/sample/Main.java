@@ -1,19 +1,28 @@
 package sample;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Background;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import javax.print.DocFlavor;
 import java.io.File;
@@ -44,6 +53,7 @@ public class Main extends Application {
 
         okButton.setOnAction(e-> primaryStage.setScene(mainApplicationPage));
         okButton.setId("ok");
+
         layout.getChildren().addAll(label, okButton);
 
         layout.setId("root");
@@ -64,6 +74,7 @@ public class Main extends Application {
         mainApplicationPage.setFill(Color.OLDLACE);
         mainApplicationPage.getStylesheets().add(css);
         MenuBar menuBar = new MenuBar();
+        menuBar.setId("menu-bar");
 
         Menu menuFile = new Menu("File");
         Menu menuSave = new Menu("Save");
@@ -75,6 +86,7 @@ public class Main extends Application {
         MenuItem customRulesCreator = new MenuItem("Custom Rules Creator");
         MenuItem miscellaneousOptions = new MenuItem("Miscellaneous Options");
         menuOptions.getItems().addAll(syntaxVersionOptions, customRulesCreator, miscellaneousOptions);
+        menuOptions.setId("menu-options");
 
         syntaxVersionOptions.setOnAction(event -> SyntaxVersionOptionsPanel.display());
         customRulesCreator.setOnAction(event -> CustomRulesCreatorPanel.display());
@@ -82,20 +94,29 @@ public class Main extends Application {
 
         menuBar.getMenus().addAll(menuFile, menuSave, menuSaveAs, menuExport, menuOptions);
 
+        Label label2 = new Label("Code from URL:");
+        label2.setId("label-code");
+        label2.setContentDisplay(ContentDisplay.LEFT);
+
         TextField url = new TextField();
         url.setPromptText("Enter URL here");
         url.setPrefWidth(300);
         Button getUrlButton = new Button("Get from URL");
 
         HBox hbox = new HBox();
-        hbox.setSpacing(100);
+        hbox.setSpacing(50);
         hbox.setId("url-and-button");
-        hbox.setMargin(url, new Insets(0, 0, 0, 150));
-        hbox.getChildren().addAll(url, getUrlButton);
+        hbox.setAlignment(Pos.CENTER_LEFT);
+        hbox.getChildren().addAll(label2, url, getUrlButton);
+
+        Label label3 = new Label("Enter code here:");
+        label3.setId("label-code");
+        label3.setStyle("-fx-padding: 15px 0;");
 
         TextArea xwikiCode = new TextArea();
+        xwikiCode.setFont(Font.font("Verdana", FontWeight.NORMAL, 15));
         xwikiCode.setPromptText("Or enter your code here");
-        xwikiCode.setPrefColumnCount(55);
+
         xwikiCode.setPrefRowCount(17);
 
         Button convertButton = new Button("Convert");
@@ -124,15 +145,15 @@ public class Main extends Application {
         HBox hboxButtons = new HBox();
         hboxButtons.setAlignment(Pos.CENTER);
         hboxButtons.getChildren().addAll(convertButton, previewButton);
-        hboxButtons.setMargin(convertButton, new Insets(0, 0, 20, 0));
-        hboxButtons.setMargin(previewButton, new Insets(0, 0, 20, 0));
-        hboxButtons.setSpacing(100);
+
+        hboxButtons.setSpacing(150);
+        hboxButtons.setPrefHeight(80);
 
         VBox urlAndCode = new VBox();
         urlAndCode.setFillWidth(false);
-        urlAndCode.setMargin(hbox, new Insets(50, 50, 50, 50));
+        urlAndCode.setMargin(hbox, new Insets(50));
         urlAndCode.setAlignment(Pos.CENTER);
-        urlAndCode.getChildren().addAll(hbox, xwikiCode);
+        urlAndCode.getChildren().addAll(hbox, label3, xwikiCode);
 
         mainPage.setTop(menuBar);
         mainPage.setBottom(hboxButtons);

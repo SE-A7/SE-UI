@@ -1,45 +1,43 @@
 #welcome {
     -fx-font: 50px Tahoma;
-    -fx-fill:          linear-gradient(from 0% 0% to 15% 50%, rgba(255,255,255,0.9), rgba(255,255,255,0));
-    -fx-fill:          linear-gradient(#ffe657 0%, #f8c202 50%, #eea10b 100%);
-    -fx-fill: linear-gradient(#ffd65b, #e68400);
-    -fx-fill:          linear-gradient(#ffef84, #f2ba44);
-    -fx-fill:         linear-gradient(#ffea6a, #efaa22);
-
+    -fx-fill: linear-gradient(#ffea6a, #efaa22);
     -fx-padding: 100px;
 }
 
 #ok {
-  -fx-background-color:
-         linear-gradient(#ffd65b, #e68400),
-         linear-gradient(#ffef84, #f2ba44),
-         linear-gradient(#ffea6a, #efaa22),
-         linear-gradient(#ffe657 0%, #f8c202 50%, #eea10b 100%),
-         linear-gradient(from 0% 0% to 15% 50%, rgba(255,255,255,0.9), rgba(255,255,255,0));
-     -fx-background-radius: 30;
-     -fx-background-insets: 0,1,2,3,0;
-     -fx-text-fill: #654b00;
-     -fx-font-weight: bold;
-     -fx-font-size: 14px;
-     -fx-padding: 10 20 10 20;
+    -fx-background-color: transparent;
+    -fx-border-color: white;
+    -fx-border-width: 2px;
+    -fx-background-insets: 0,1,2,3,0;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-max-width: 200px;
+    -fx-font-size: 25px;
+    -fx-padding: 10 20;
+    -fx-cursor: hand;
+}
+
+#ok:hover {
+    -fx-background-color: #fdb822;
+    -fx-border-color: transparent;
 }
 
 #root{
      -fx-background-image: url("background.png");
-     -fx-background-repeat: stretch;
+     -fx-background-repeat: no-repeat;
      -fx-background-size: 850 650;
      -fx-background-position: center center;
-     -fx-effect: dropshadow(three-pass-box, black, 30, 0.5, 0, 0);
 }
 
 #main-page{
-     -fx-background-image: url("backgroundMainPage.jpg");
-     -fx-background-repeat: stretch;
-     -fx-background-size: 850 650;
-     -fx-background-position: center center;
+     -fx-background-color: linear-gradient( #0fb8ad 0%, #1fc8db 51%, #2cb5e8 75%);
      -fx-effect: dropshadow(three-pass-box, black, 30, 0.5, 0, 0);
 }
 
+
+.menu-bar, .menu-options {
+    -fx-cursor: hand;
+}
 
 .menu-item .label {
     -fx-text-fill: white;
@@ -59,16 +57,37 @@
     -fx-padding: 0.333333em 0.083333em 0.666667em 0.083333em; /* 4 1 8 1 */
 }
 
-.button {
+.button , .combo-box {
+    -fx-background-color: transparent;
+    -fx-border-color: white;
+    -fx-border-width: 2px;
      -fx-text-fill: white;
      -fx-font-family: "Arial Narrow";
      -fx-font-weight: bold;
-     -fx-background-color: linear-gradient(#61a2b1, #2A5058);
-     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
-     -fx-pref-height: 28px;
-     -fx-pref-width: 100px;
+     -fx-pref-width: 150px;
+     -fx-font-size: 20px;
+     -fx-cursor: hand;
  }
- .button:hover {
-     -fx-background-color: linear-gradient(#2A5058, #61a2b1);
- }
+
+.button:hover ,.combo-box:hover, .combo-box:focused{
+    -fx-background-color: #215267;
+    -fx-border-color: transparent;
+}
+
+.combo-box {
+    -fx-font-size: 15px;
+    -fx-font-weight: normal;
+}
+
+.radio-button .dot {
+    -fx-mark-highlight-color: #67b252;
+    -fx-mark-color:  #67b252;
+}
+
+#label-code {
+    -fx-text-fill: white;
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+}
+
 
