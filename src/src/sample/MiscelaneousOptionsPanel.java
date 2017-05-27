@@ -3,14 +3,20 @@ package sample;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.Text;
+import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
+
+import java.io.File;
 
 public class MiscelaneousOptionsPanel {
 
@@ -87,6 +93,16 @@ public class MiscelaneousOptionsPanel {
         buttons.setAlignment(Pos.CENTER);
         buttons.setPrefHeight(80);
         layout.getChildren().add(buttons);
+
+
+        defaultSavePathPicker.setOnAction(e -> {
+            DirectoryChooser chooser = new DirectoryChooser();
+            chooser.setTitle("Choose default save path");
+
+            File selectedDirectory = chooser.showDialog(window);
+
+        });
+
 
         String css = MiscelaneousOptionsPanel.class.getResource("../resources/style.css").toExternalForm();
 
