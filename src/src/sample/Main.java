@@ -1,18 +1,15 @@
 package sample;
 
-import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
-import javafx.animation.Timeline;
 import javafx.application.Application;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Background;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -22,13 +19,10 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 
-import javax.print.DocFlavor;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.net.MalformedURLException;
 
 public class Main extends Application {
 
@@ -77,22 +71,27 @@ public class Main extends Application {
         menuBar.setId("menu-bar");
 
         Menu menuFile = new Menu("File");
-        Menu menuSave = new Menu("Save");
-        Menu menuSaveAs = new Menu("Save as");
-        Menu menuExport = new Menu("Export");
         Menu menuOptions = new Menu("Options");
+
+
+        MenuItem saveAs = new MenuItem("Save As");
+        MenuItem save = new MenuItem("Save");
+        MenuItem export = new MenuItem("Export");
+        MenuItem search = new MenuItem("Search");
+        MenuItem replace = new MenuItem("Replace");
 
         MenuItem syntaxVersionOptions = new MenuItem("Syntax Version Options");
         MenuItem customRulesCreator = new MenuItem("Custom Rules Creator");
         MenuItem miscellaneousOptions = new MenuItem("Miscellaneous Options");
         menuOptions.getItems().addAll(syntaxVersionOptions, customRulesCreator, miscellaneousOptions);
         menuOptions.setId("menu-options");
+        menuFile.getItems().addAll(save, saveAs, export, search, replace);
 
         syntaxVersionOptions.setOnAction(event -> SyntaxVersionOptionsPanel.display());
         customRulesCreator.setOnAction(event -> CustomRulesCreatorPanel.display());
         miscellaneousOptions.setOnAction(event -> MiscelaneousOptionsPanel.display());
 
-        menuBar.getMenus().addAll(menuFile, menuSave, menuSaveAs, menuExport, menuOptions);
+        menuBar.getMenus().addAll(menuFile, menuOptions);
 
         Label label2 = new Label("Code from URL:");
         label2.setId("label-code");
@@ -159,8 +158,7 @@ public class Main extends Application {
         mainPage.setBottom(hboxButtons);
         mainPage.setCenter(urlAndCode);
 
-
-        menuSaveAs.setOnAction(e -> {
+        saveAs.setOnAction(e -> {
             FileChooser fileChooser = new FileChooser();
 
             FileChooser.ExtensionFilter extFilterTxt  = new FileChooser.ExtensionFilter("TXT files (*.txt)", "*.txt");
@@ -173,21 +171,15 @@ public class Main extends Application {
                 SaveFile(xwikiCode.getText(), file);
             }
         });
-        onAction(menuSaveAs);
+        export.setOnAction(e-> ExportWindow.displayExport());
 
-        menuExport.setOnAction(event -> {
-            ExportWindow.displayExport();
-        });
-        onAction(menuExport);
+        search.setOnAction(e->System.out.println("stub"));
+        replace.setOnAction(e->System.out.println("stub"));
+
+        search.setAccelerator(new KeyCodeCombination(KeyCode.F, KeyCombination.CONTROL_DOWN));
+        replace.setAccelerator(new KeyCodeCombination(KeyCode.R, KeyCombination.CONTROL_DOWN));
     }
 
-    public static void onAction(Menu menu) {
-        final MenuItem menuItem = new MenuItem();
-
-        menu.addEventHandler(Menu.ON_SHOWN, event -> menu.hide());
-        menu.addEventHandler(Menu.ON_SHOWING, event -> menu.fire());
-        menu.getItems().add(menuItem);
-    }
 
     private void SaveFile(String content, File file){
         try {
