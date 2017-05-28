@@ -1,15 +1,13 @@
 package sample;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyCodeCombination;
-import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -19,10 +17,16 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import org.fxmisc.richtext.CodeArea;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
 
 public class Main extends Application {
 
@@ -31,6 +35,9 @@ public class Main extends Application {
     private static final String emptyInputString = "Cannot render preview, you haven't something.";
     private static final String EMPTY_URL_ERROT = "No url inserted";
     private static final String INVALID_URL_ERROR = "The url you've entered is not valid";
+    private CodeArea xwikiCode;
+    private List<Tuple> positions = null;
+    private String lastSearch;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -77,15 +84,16 @@ public class Main extends Application {
         MenuItem saveAs = new MenuItem("Save As");
         MenuItem save = new MenuItem("Save");
         MenuItem export = new MenuItem("Export");
-        MenuItem search = new MenuItem("Search");
-        MenuItem replace = new MenuItem("Replace");
+        //MenuItem search = new MenuItem("Search");
+        //MenuItem replace = new MenuItem("Replace");
 
         MenuItem syntaxVersionOptions = new MenuItem("Syntax Version Options");
         MenuItem customRulesCreator = new MenuItem("Custom Rules Creator");
         MenuItem miscellaneousOptions = new MenuItem("Miscellaneous Options");
         menuOptions.getItems().addAll(syntaxVersionOptions, customRulesCreator, miscellaneousOptions);
         menuOptions.setId("menu-options");
-        menuFile.getItems().addAll(save, saveAs, export, search, replace);
+        //menuFile.getItems().addAll(save, saveAs, export, search, replace);
+        menuFile.getItems().addAll(save, saveAs, export);
 
         syntaxVersionOptions.setOnAction(event -> SyntaxVersionOptionsPanel.display());
         customRulesCreator.setOnAction(event -> CustomRulesCreatorPanel.display());
@@ -112,11 +120,12 @@ public class Main extends Application {
         label3.setId("label-code");
         label3.setStyle("-fx-padding: 15px 0;");
 
-        TextArea xwikiCode = new TextArea();
+        xwikiCode = new CodeArea();
         xwikiCode.setFont(Font.font("Verdana", FontWeight.NORMAL, 15));
-        xwikiCode.setPromptText("Or enter your code here");
-
-        xwikiCode.setPrefRowCount(17);
+        //xwikiCode.setPromptText("Or enter your code here");
+        //xwikiCode.setPrefRowCount(17);
+        xwikiCode.setMinSize(600,230);
+        xwikiCode.setMaxSize(600,230);
 
         Button convertButton = new Button("Convert");
         Button previewButton = new Button("Preview");
@@ -134,12 +143,30 @@ public class Main extends Application {
                 ErrorWindow.displayError(EMPTY_URL_ERROT);
             } else {
                 try {
-                    xwikiCode.setText(RemoteFileRetriever.getFile(url.getText()));
+                    xwikiCode.replaceText(RemoteFileRetriever.getFile(url.getText())); // posibil bug aici(din cauza richFX)
                 } catch (IOException e) {
                     ErrorWindow.displayError(INVALID_URL_ERROR);
                 }
             }
         });
+
+
+        Button searchButton = new Button("Search");
+        Button replaceButton = new Button("Replace");
+
+        TextArea searchArea = new TextArea();
+        searchArea.setMaxWidth(140);
+        searchArea.setMaxHeight(40);
+
+        TextArea replaceArea = new TextArea();
+        replaceArea.setMaxWidth(140);
+        replaceArea.setMaxHeight(40);
+
+        HBox hboxFindReplace = new HBox();
+        hboxFindReplace.setAlignment(Pos.CENTER);
+        hboxFindReplace.getChildren().addAll(searchButton,searchArea,replaceButton,replaceArea);
+        hboxFindReplace.setSpacing(10);
+
 
         HBox hboxButtons = new HBox();
         hboxButtons.setAlignment(Pos.CENTER);
@@ -148,11 +175,15 @@ public class Main extends Application {
         hboxButtons.setSpacing(150);
         hboxButtons.setPrefHeight(80);
 
+
+
+
         VBox urlAndCode = new VBox();
         urlAndCode.setFillWidth(false);
         urlAndCode.setMargin(hbox, new Insets(50));
         urlAndCode.setAlignment(Pos.CENTER);
-        urlAndCode.getChildren().addAll(hbox, label3, xwikiCode);
+        urlAndCode.getChildren().addAll(hbox, label3, hboxFindReplace,xwikiCode);
+        urlAndCode.setSpacing(10);
 
         mainPage.setTop(menuBar);
         mainPage.setBottom(hboxButtons);
@@ -173,11 +204,28 @@ public class Main extends Application {
         });
         export.setOnAction(e-> ExportWindow.displayExport());
 
-        search.setOnAction(e->System.out.println("stub"));
-        replace.setOnAction(e->System.out.println("stub"));
+        searchButton.setOnAction(e->{
+            lastSearch = xwikiCode.getText();
+            FindAndHighlight(searchArea,xwikiCode);
+            System.out.println("stub");
+        });
 
-        search.setAccelerator(new KeyCodeCombination(KeyCode.F, KeyCombination.CONTROL_DOWN));
-        replace.setAccelerator(new KeyCodeCombination(KeyCode.R, KeyCombination.CONTROL_DOWN));
+        xwikiCode.setOnMouseClicked(e->{
+            if(searchArea.getText() == "" || searchArea.getText() != lastSearch ) {
+                if (positions != null) {
+                    for (int i = 0; i < positions.size(); i++) {
+                        xwikiCode.setStyleClass(positions.get(i).start, positions.get(i).end, "black");
+                    }
+                }
+            }
+        });
+
+        replaceButton.setOnAction(e->{
+            ReplaceHighlighted(replaceArea,xwikiCode);
+        });
+
+        //search.setAccelerator(new KeyCodeCombination(KeyCode.F, KeyCombination.CONTROL_DOWN));
+        //replace.setAccelerator(new KeyCodeCombination(KeyCode.R, KeyCombination.CONTROL_DOWN));
     }
 
 
@@ -192,6 +240,46 @@ public class Main extends Application {
             ex.printStackTrace();
         }
 
+    }
+
+    private void FindAndHighlight(TextArea regex, CodeArea text) {
+        Pattern pattern = null;
+        try {
+            pattern = Pattern.compile(regex.getText());
+
+        } catch (PatternSyntaxException psex) {
+            return;
+        }
+
+        Matcher matcher = pattern.matcher(text.getText());
+
+        boolean found = false;
+
+        positions = new ArrayList<Tuple>();
+
+        while (matcher.find()) {
+            positions.add(new Tuple(matcher.start(), matcher.end()));
+            found = true;
+        }
+        if (!found) {
+            //sb.append(String.format("No match found.%n"));
+        } else {
+            for (int i = 0; i < positions.size(); i++) {
+                text.setStyleClass(positions.get(i).start,positions.get(i).end,"red");
+            }
+        }
+    }
+
+    private void ReplaceHighlighted(TextArea replace, CodeArea text) {
+        if(positions != null){
+            for (int i = 0; i < positions.size(); i++) {
+                text.setStyleClass(positions.get(i).start, positions.get(i).end, "black");
+            }
+            for (int i = 0; i < positions.size(); i++) {
+                text.replaceText(positions.get(i).start,positions.get(i).end,replace.getText());
+            }
+        }
+        positions = null;
     }
 
     public static void main(String[] args) {

@@ -90,4 +90,7 @@
     -fx-font-weight: bold;
 }
 
+.red { -fx-fill: red; }
+
+.black { -fx-fill: black; }
 
