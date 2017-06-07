@@ -1,4 +1,4 @@
-package main.java.sample;
+package sample;
 
 import lombok.Getter;
 import lombok.Setter;

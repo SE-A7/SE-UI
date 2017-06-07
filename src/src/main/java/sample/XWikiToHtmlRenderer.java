@@ -1,4 +1,4 @@
-package main.java.sample;
+package sample;
 
 import org.xwiki.component.embed.EmbeddableComponentManager;
 import org.xwiki.component.manager.ComponentLookupException;

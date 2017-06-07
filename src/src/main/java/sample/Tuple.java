@@ -1,4 +1,4 @@
-package main.java.sample;
+package sample;
 
 /**
  * Created by samur on 5/28/2017.

@@ -1,4 +1,4 @@
-package main.java.sample;
+package sample;
 
 import org.apache.commons.io.IOUtils;
 

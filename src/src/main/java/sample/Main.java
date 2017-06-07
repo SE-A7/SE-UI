@@ -1,4 +1,4 @@
-package main.java.sample;
+package sample;
 
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -18,6 +18,7 @@ import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.fxmisc.richtext.CodeArea;
+import org.json.JSONException;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -132,7 +133,11 @@ public class Main extends Application {
         previewButton.setOnAction(event -> {
             if (xwikiCode.getText().length() == 0) {
                 ErrorWindow.displayError(emptyInputString);
-                new AppConfig().saveConfig();
+                try {
+                    new AppConfig().saveConfig();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             } else {
                 PreviewWindow.displayPreview(XWikiToHtmlRenderer.convert(xwikiCode.getText()));
             }

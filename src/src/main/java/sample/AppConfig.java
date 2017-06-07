@@ -1,7 +1,8 @@
-package main.java.sample;
+package sample;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -52,7 +53,7 @@ public class AppConfig {
     /**
      * Loads the configuration from the json configuration file into this class.
      */
-    private void loadConfig() {
+    private void loadConfig() throws JSONException {
         try {
             byte[] encoded = Files.readAllBytes(Paths.get(CONFIG_FILE_PATH));
             String configString = new String(encoded, "UTF-8");
@@ -74,7 +75,7 @@ public class AppConfig {
      * configuration file, this way those changes will also be available when the user
      * open the app the next time.
      */
-    public void saveConfig() {
+    public void saveConfig() throws JSONException {
 
         JSONObject jsonConfig = new JSONObject();
         jsonConfig.put("defaultSavePath", defaultSavePath);
